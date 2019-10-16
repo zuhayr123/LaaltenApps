@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <color name="md_red_900">#B71C1C</color>
+
+    <!-- pinks -->
+    <color name="md_pink_700">#C2185B</color>
+
+
+    <!-- purples -->
+    <color name="md_purple_800">#6A1B9A</color>
+
+    <!-- deep purples -->
+    <color name="md_deep_purple_600">#5E35B1</color>
+
+
+    <color name="md_indigo_700">#303F9F</color>
+
+
+
+    <color name="md_blue_600">#1E88E5</color>
+
+    <color name="md_blue_light_600">#42a5f5</color>
+
+
+    <!-- light blue-->
+
+    <!-- cyan -->
+    <color name="md_cyan_600">#00ACC1</color>
+
+
+    <!-- teal -->
+    <color name="md_teal_600">#00897B</color>
+
+    <color name="md_green_600">#43A047</color>
+
+
+    <!-- lime-->
+    <color name="md_lime_500">#CDDC39</color>
+
+    <!--yellow -->
+    <color name="md_yellow_600">#FDD835</color>
+
+    <!--amber-->
+    <color name="md_amber_A700">#FFAB00</color>
+
+    <color name="md_orange_A700">#FF6D00</color>
+
+    <!--deep orange-->
+    <color name="md_deep_orange_A700">#DD2600</color>
+
+    <!--brown -->
+    <color name="md_brown_800">#4E342E</color>
+
+
+    <!--blue grey-->
+    <color name="md_blue_grey_900">#263238</color>
+
+
+</resources>

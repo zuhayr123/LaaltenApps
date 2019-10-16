@@ -1,0 +1,19 @@
+<resources>
+    <string name="app_name">LaalTen</string>
+    <string name="title_home">Home</string>
+    <string name="title_dashboard">Dashboard</string>
+    <string name="title_notifications">Notifications</string>
+    <string name="text_on_music">Switch on this mode and play any song on your smart phone to sync it with your LaalTen</string>
+    <string name="microphone_data">Place your phone near another speaker to sync with external music</string>
+    <string name="strobe_data">Turn this mode on to rapidly stobe light giving you a trippy experience</string>
+    <string name="soothing_data">Colors will automatically blend slowly giving you a soothing feel</string>
+    <string name="ambient_data">Use your LaalTen as a normal lamp with ambient light.</string>
+    <string name="intense_data">Set the mood of your room to intense with dim red color.</string>
+    <string name="about_us">We are a bunch of unemployed engineers trying to build fun,cheap products and earn us some money in the process.</string>
+    <string name="strobe_content">Feel the trippy lights strobing at mindblowing speeds</string>
+    <string name="music_content">Play any song on your smart phone and sync with lights</string>
+    <string name="mic_content">Sync your lights with sound from mic</string>
+    <string name="ambient_content">Use this light for an ambient mood</string>
+    <string name="intense_content">Change the mood to intense with this dark mode.</string>
+    <string name="soothing_content">Let the light calm you down with this soothing mode</string>
+</resources>

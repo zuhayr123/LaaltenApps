@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:id="@+id/middlepageLayout"
+    android:gravity="bottom|center"
+    android:layout_gravity="center|bottom"
+    android:descendantFocusability="blocksDescendants">
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:gravity="bottom|center"
+        android:background="@color/colorWhite">
+        <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+            android:id="@+id/pullToRefresh"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+        <ListView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/listBT">
+        </ListView>
+        </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="90dp"
+            android:id="@+id/ConnectButton"
+            android:layout_gravity="bottom"
+            android:background="@color/colorPrimary"
+            android:text="Connect"
+            android:textColor="@color/colorWhite"/>
+    </FrameLayout>
+</LinearLayout>

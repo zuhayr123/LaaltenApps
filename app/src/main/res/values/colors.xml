@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#253240</color>
+    <color name="colorPrimaryDark">#242f35</color>
+    <color name="colorAccent">#9fe53935</color>
+
+    <color name="colorTransparent">#00e53935</color>
+
+    <color name="colorPrimaryLight">#3f4a56</color>
+    <color name="colorPrimaryLightText">#5a6674</color>
+
+    <color name="primaryGreen">#8bcc45</color>
+    <color name="secondaryGreen">#abdb67</color>
+    <color name="tertiaryGreen">#bbed8a</color>
+
+    <color name="primaryBlue">#4556b5</color>
+    <color name="secondaryBlue">#5c6be6</color>
+    <color name="tertiaryBlue">#5667cc</color>
+
+    <color name="primaryPink">#f757b4</color>
+    <color name="secondaryPink">#ff66cc</color>
+    <color name="tertiaryPink">#ff7acc</color>
+
+    <color name="primaryDarkGreen">#2e7d32</color>
+    <color name="secondaryDarkGreen">#388e3c</color>
+    <color name="tertiaryDarkGreen">#43a047</color>
+
+    <color name="primaryPurple">#6a1b9a</color>
+    <color name="secondaryPurple">#7b1fa2</color>
+    <color name="tertiaryPurple">#8e24aa</color>
+
+    <color name="primaryDarkPink">#c2185b</color>
+    <color name="secondaryDarkPink">#d81b60</color>
+    <color name="tertiaryDarkPink">#e91e63</color>
+
+
+    <color name="contrastYellow">#fff373</color>
+    <color name="contrastPink">#ff7acc</color>
+
+    <color name="kindOfYellow">#c6ff00</color>
+    <color name="kindOfPink">#de0089</color>
+    <color name="kindOfPurple">#c800ff</color>
+
+
+    <color name="colorWhite">#ffffff</color>
+    <color name="colorBlack">#000000</color>
+
+
+    <color name="colorDarkMode">#253240</color>
+
+
+    <array name="array_dot_active">
+        <item>@color/colorBlack</item>
+        <item>@color/colorWhite</item>
+        <item>@color/colorBlack</item>
+        <item>@color/colorWhite</item>
+    </array>
+
+    <array name="array_dot_inactive">
+        <item>@color/colorWhite</item>
+        <item>@color/colorBlack</item>
+        <item>@color/colorWhite</item>
+        <item>@color/colorBlack</item>
+    </array>
+
+
+
+
+</resources>
