@@ -1,0 +1,12 @@
+<component name="libraryTable">
+  <library name="Gradle: com.github.madrapps:pikolo-2.0.0">
+    <CLASSES>
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-1/files-1.1/pikolo-2.0.0.aar/a79a7a9cd5ef86f2746a0aa3c8f9c7f1/res" />
+      <root url="jar://$USER_HOME$/.gradle/caches/transforms-1/files-1.1/pikolo-2.0.0.aar/a79a7a9cd5ef86f2746a0aa3c8f9c7f1/jars/classes.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.github.madrapps/pikolo/2.0.0/f6f3fc7deef015a12204a8af7c8f31a3cc6026fe/pikolo-2.0.0-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>

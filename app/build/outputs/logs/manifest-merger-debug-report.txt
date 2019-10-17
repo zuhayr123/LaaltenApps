@@ -1,9 +1,9 @@
 -- Merging decision tree log ---
 manifest
-ADDED from /home/abou/Desktop/LaalTen/app/src/main/AndroidManifest.xml:2:1-29:12
-INJECTED from /home/abou/Desktop/LaalTen/app/src/main/AndroidManifest.xml:2:1-29:12
-INJECTED from /home/abou/Desktop/LaalTen/app/src/main/AndroidManifest.xml:2:1-29:12
-INJECTED from /home/abou/Desktop/LaalTen/app/src/main/AndroidManifest.xml:2:1-29:12
+ADDED from /home/abou/Desktop/LaalTen/app/src/main/AndroidManifest.xml:2:1-32:12
+INJECTED from /home/abou/Desktop/LaalTen/app/src/main/AndroidManifest.xml:2:1-32:12
+INJECTED from /home/abou/Desktop/LaalTen/app/src/main/AndroidManifest.xml:2:1-32:12
+INJECTED from /home/abou/Desktop/LaalTen/app/src/main/AndroidManifest.xml:2:1-32:12
 MERGED from [com.google.android.material:material:1.1.0-alpha07] /home/abou/.gradle/caches/transforms-1/files-1.1/material-1.1.0-alpha07.aar/adebadbe54d812c51a9fa19b72b8fb0d/AndroidManifest.xml:17:1-24:12
 MERGED from [androidx.viewpager2:viewpager2:1.0.0-alpha04] /home/abou/.gradle/caches/transforms-1/files-1.1/viewpager2-1.0.0-alpha04.aar/f1986e3c6d6b911f3d98ce600a4439a5/AndroidManifest.xml:17:1-22:12
 MERGED from [androidx.recyclerview:recyclerview:1.1.0-alpha06] /home/abou/.gradle/caches/transforms-1/files-1.1/recyclerview-1.1.0-alpha06.aar/08c0bd63816ed5a3a604a7626493f23f/AndroidManifest.xml:17:1-24:12
@@ -50,20 +50,20 @@ MERGED from [androidx.lifecycle:lifecycle-process:2.0.0] /home/abou/.gradle/cach
 MERGED from [androidx.lifecycle:lifecycle-service:2.0.0] /home/abou/.gradle/caches/transforms-1/files-1.1/lifecycle-service-2.0.0.aar/d546dec2952d2e39ce521e374f580d68/AndroidManifest.xml:17:1-22:12
 MERGED from [androidx.lifecycle:lifecycle-runtime:2.1.0-beta01] /home/abou/.gradle/caches/transforms-1/files-1.1/lifecycle-runtime-2.1.0-beta01.aar/b6c9fd4ab5d9463edd90e49239b832e0/AndroidManifest.xml:17:1-22:12
 MERGED from [androidx.lifecycle:lifecycle-viewmodel:2.1.0-beta01] /home/abou/.gradle/caches/transforms-1/files-1.1/lifecycle-viewmodel-2.1.0-beta01.aar/e6f65a378bb898dcefc2b5fdbbd54d28/AndroidManifest.xml:17:1-22:12
-INJECTED from /home/abou/Desktop/LaalTen/app/src/main/AndroidManifest.xml:2:1-29:12
-INJECTED from /home/abou/Desktop/LaalTen/app/src/main/AndroidManifest.xml:2:1-29:12
-INJECTED from /home/abou/Desktop/LaalTen/app/src/main/AndroidManifest.xml:2:1-29:12
+INJECTED from /home/abou/Desktop/LaalTen/app/src/main/AndroidManifest.xml:2:1-32:12
+INJECTED from /home/abou/Desktop/LaalTen/app/src/main/AndroidManifest.xml:2:1-32:12
+INJECTED from /home/abou/Desktop/LaalTen/app/src/main/AndroidManifest.xml:2:1-32:12
 	package
 		ADDED from /home/abou/Desktop/LaalTen/app/src/main/AndroidManifest.xml:3:5-43
 		INJECTED from /home/abou/Desktop/LaalTen/app/src/main/AndroidManifest.xml
 		INJECTED from /home/abou/Desktop/LaalTen/app/src/main/AndroidManifest.xml
 	android:versionName
 		INJECTED from /home/abou/Desktop/LaalTen/app/src/main/AndroidManifest.xml
-		ADDED from /home/abou/Desktop/LaalTen/app/src/main/AndroidManifest.xml:2:1-29:12
+		ADDED from /home/abou/Desktop/LaalTen/app/src/main/AndroidManifest.xml:2:1-32:12
 		INJECTED from /home/abou/Desktop/LaalTen/app/src/main/AndroidManifest.xml
 	android:versionCode
 		INJECTED from /home/abou/Desktop/LaalTen/app/src/main/AndroidManifest.xml
-		ADDED from /home/abou/Desktop/LaalTen/app/src/main/AndroidManifest.xml:2:1-29:12
+		ADDED from /home/abou/Desktop/LaalTen/app/src/main/AndroidManifest.xml:2:1-32:12
 		INJECTED from /home/abou/Desktop/LaalTen/app/src/main/AndroidManifest.xml
 	xmlns:android
 		ADDED from /home/abou/Desktop/LaalTen/app/src/main/AndroidManifest.xml:2:11-69
@@ -75,8 +75,20 @@ uses-permission#android.permission.BLUETOOTH
 ADDED from /home/abou/Desktop/LaalTen/app/src/main/AndroidManifest.xml:6:5-68
 	android:name
 		ADDED from /home/abou/Desktop/LaalTen/app/src/main/AndroidManifest.xml:6:22-65
+uses-permission#android.permission.MODIFY_AUDIO_SETTINGS
+ADDED from /home/abou/Desktop/LaalTen/app/src/main/AndroidManifest.xml:7:5-80
+	android:name
+		ADDED from /home/abou/Desktop/LaalTen/app/src/main/AndroidManifest.xml:7:22-77
+uses-permission#android.permission.BLUETOOTH_ADMIN
+ADDED from /home/abou/Desktop/LaalTen/app/src/main/AndroidManifest.xml:8:5-74
+	android:name
+		ADDED from /home/abou/Desktop/LaalTen/app/src/main/AndroidManifest.xml:8:22-71
+uses-permission#android.permission.ACCESS_COARSE_LOCATION
+ADDED from /home/abou/Desktop/LaalTen/app/src/main/AndroidManifest.xml:9:5-81
+	android:name
+		ADDED from /home/abou/Desktop/LaalTen/app/src/main/AndroidManifest.xml:9:22-78
 application
-ADDED from /home/abou/Desktop/LaalTen/app/src/main/AndroidManifest.xml:7:5-27:19
+ADDED from /home/abou/Desktop/LaalTen/app/src/main/AndroidManifest.xml:10:5-30:19
 MERGED from [com.google.android.material:material:1.1.0-alpha07] /home/abou/.gradle/caches/transforms-1/files-1.1/material-1.1.0-alpha07.aar/adebadbe54d812c51a9fa19b72b8fb0d/AndroidManifest.xml:22:5-20
 MERGED from [com.google.android.material:material:1.1.0-alpha07] /home/abou/.gradle/caches/transforms-1/files-1.1/material-1.1.0-alpha07.aar/adebadbe54d812c51a9fa19b72b8fb0d/AndroidManifest.xml:22:5-20
 MERGED from [androidx.work:work-runtime:2.0.1] /home/abou/.gradle/caches/transforms-1/files-1.1/work-runtime-2.0.1.aar/a3ba908b3ef1839a0100507779cd1261/AndroidManifest.xml:27:5-121:19
@@ -94,45 +106,45 @@ MERGED from [androidx.lifecycle:lifecycle-process:2.0.0] /home/abou/.gradle/cach
 	android:appComponentFactory
 		ADDED from [androidx.core:core:1.1.0-rc01] /home/abou/.gradle/caches/transforms-1/files-1.1/core-1.1.0-rc01.aar/ef643d22ecc040a65ba5264dbd33e6d8/AndroidManifest.xml:24:18-86
 	android:supportsRtl
-		ADDED from /home/abou/Desktop/LaalTen/app/src/main/AndroidManifest.xml:12:9-35
+		ADDED from /home/abou/Desktop/LaalTen/app/src/main/AndroidManifest.xml:15:9-35
 	android:label
-		ADDED from /home/abou/Desktop/LaalTen/app/src/main/AndroidManifest.xml:10:9-41
+		ADDED from /home/abou/Desktop/LaalTen/app/src/main/AndroidManifest.xml:13:9-41
 	android:roundIcon
-		ADDED from /home/abou/Desktop/LaalTen/app/src/main/AndroidManifest.xml:11:9-54
+		ADDED from /home/abou/Desktop/LaalTen/app/src/main/AndroidManifest.xml:14:9-54
 	android:icon
-		ADDED from /home/abou/Desktop/LaalTen/app/src/main/AndroidManifest.xml:9:9-43
+		ADDED from /home/abou/Desktop/LaalTen/app/src/main/AndroidManifest.xml:12:9-43
 	android:allowBackup
-		ADDED from /home/abou/Desktop/LaalTen/app/src/main/AndroidManifest.xml:8:9-35
+		ADDED from /home/abou/Desktop/LaalTen/app/src/main/AndroidManifest.xml:11:9-35
 	android:theme
-		ADDED from /home/abou/Desktop/LaalTen/app/src/main/AndroidManifest.xml:13:9-40
+		ADDED from /home/abou/Desktop/LaalTen/app/src/main/AndroidManifest.xml:16:9-40
 activity#com.laaltentech.abou.laalten.WelcomeActivity
-ADDED from /home/abou/Desktop/LaalTen/app/src/main/AndroidManifest.xml:14:9-22:20
+ADDED from /home/abou/Desktop/LaalTen/app/src/main/AndroidManifest.xml:17:9-25:20
 	android:label
-		ADDED from /home/abou/Desktop/LaalTen/app/src/main/AndroidManifest.xml:16:13-45
+		ADDED from /home/abou/Desktop/LaalTen/app/src/main/AndroidManifest.xml:19:13-45
 	android:name
-		ADDED from /home/abou/Desktop/LaalTen/app/src/main/AndroidManifest.xml:15:13-44
+		ADDED from /home/abou/Desktop/LaalTen/app/src/main/AndroidManifest.xml:18:13-44
 intent-filter#action:name:android.intent.action.MAIN+category:name:android.intent.category.LAUNCHER
-ADDED from /home/abou/Desktop/LaalTen/app/src/main/AndroidManifest.xml:17:13-21:29
+ADDED from /home/abou/Desktop/LaalTen/app/src/main/AndroidManifest.xml:20:13-24:29
 action#android.intent.action.MAIN
-ADDED from /home/abou/Desktop/LaalTen/app/src/main/AndroidManifest.xml:18:17-69
+ADDED from /home/abou/Desktop/LaalTen/app/src/main/AndroidManifest.xml:21:17-69
 	android:name
-		ADDED from /home/abou/Desktop/LaalTen/app/src/main/AndroidManifest.xml:18:25-66
+		ADDED from /home/abou/Desktop/LaalTen/app/src/main/AndroidManifest.xml:21:25-66
 category#android.intent.category.LAUNCHER
-ADDED from /home/abou/Desktop/LaalTen/app/src/main/AndroidManifest.xml:20:17-77
+ADDED from /home/abou/Desktop/LaalTen/app/src/main/AndroidManifest.xml:23:17-77
 	android:name
-		ADDED from /home/abou/Desktop/LaalTen/app/src/main/AndroidManifest.xml:20:27-74
+		ADDED from /home/abou/Desktop/LaalTen/app/src/main/AndroidManifest.xml:23:27-74
 activity#com.laaltentech.abou.laalten.MainActivity
-ADDED from /home/abou/Desktop/LaalTen/app/src/main/AndroidManifest.xml:23:9-50
+ADDED from /home/abou/Desktop/LaalTen/app/src/main/AndroidManifest.xml:26:9-50
 	android:name
-		ADDED from /home/abou/Desktop/LaalTen/app/src/main/AndroidManifest.xml:23:19-47
+		ADDED from /home/abou/Desktop/LaalTen/app/src/main/AndroidManifest.xml:26:19-47
 activity#com.laaltentech.abou.laalten.MiddleScreen
-ADDED from /home/abou/Desktop/LaalTen/app/src/main/AndroidManifest.xml:24:9-50
+ADDED from /home/abou/Desktop/LaalTen/app/src/main/AndroidManifest.xml:27:9-50
 	android:name
-		ADDED from /home/abou/Desktop/LaalTen/app/src/main/AndroidManifest.xml:24:19-47
+		ADDED from /home/abou/Desktop/LaalTen/app/src/main/AndroidManifest.xml:27:19-47
 service#com.laaltentech.abou.laalten.BluetoothService
-ADDED from /home/abou/Desktop/LaalTen/app/src/main/AndroidManifest.xml:26:9-53
+ADDED from /home/abou/Desktop/LaalTen/app/src/main/AndroidManifest.xml:29:9-53
 	android:name
-		ADDED from /home/abou/Desktop/LaalTen/app/src/main/AndroidManifest.xml:26:18-50
+		ADDED from /home/abou/Desktop/LaalTen/app/src/main/AndroidManifest.xml:29:18-50
 uses-sdk
 INJECTED from /home/abou/Desktop/LaalTen/app/src/main/AndroidManifest.xml reason: use-sdk injection requested
 INJECTED from /home/abou/Desktop/LaalTen/app/src/main/AndroidManifest.xml

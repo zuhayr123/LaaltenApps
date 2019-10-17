@@ -124,15 +124,6 @@ public class FragmentHome extends Fragment {
             }
         }
 
-//        booleans[0] = false; //music
-//        booleans[1] = false; //strobe
-//        booleans[2] = false; //ambient
-//        booleans[3] = false; //mic
-//        booleans[4] = false; //soothing
-//        booleans[5] = false; //intense
-
-
-
         musicButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

@@ -13,6 +13,7 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.SharedPreferences;
 import android.graphics.Color;
+import android.media.audiofx.Visualizer;
 import android.os.Build;
 import android.os.IBinder;
 import android.util.Log;
@@ -21,6 +22,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.util.Arrays;
+import java.util.Random;
 import java.util.Set;
 import java.util.UUID;
 
@@ -29,6 +31,7 @@ import javax.security.auth.login.LoginException;
 import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
 import androidx.core.app.NotificationCompat;
+import androidx.core.content.ContextCompat;
 import androidx.work.WorkManager;
 
 import static android.content.ContentValues.TAG;
@@ -36,7 +39,7 @@ import static com.laaltentech.abou.laalten.MainActivity.BROADCAST_ACTION;
 import static com.laaltentech.abou.laalten.NotificationPanel.CHANNEL_ID;
 
 
-public class BluetoothService extends Service {
+public class BluetoothService extends Service implements Visualizer.OnDataCaptureListener{
     BluetoothAdapter mBluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
     final Set<BluetoothDevice> pairedDevices = mBluetoothAdapter.getBondedDevices();
     Object[] devices = (Object[]) pairedDevices.toArray();
@@ -54,6 +57,7 @@ public class BluetoothService extends Service {
     String dataOutput ;
     Thread workerThread;
 
+    String oldString = "";
     boolean[] arrayDataMusic;
     boolean[] arrayDataTheme;
     int[] arrayDataSeekbar;
@@ -90,11 +94,11 @@ public class BluetoothService extends Service {
         arrayDataTheme = new boolean[20];
         arrayDataSeekbar = new int[6];
         boolean stateBT = false;
-//        try {
-//            stateBT = BtConnect();
-//        } catch (IOException e) {
-//            e.printStackTrace();
-//        }
+        try {
+            BtConnect();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
         Notification notification = new NotificationCompat.Builder(this,CHANNEL_ID)
                 .setContentTitle("LaalTen")
                 .setContentText("Tap for more options")
@@ -123,12 +127,24 @@ public class BluetoothService extends Service {
         stopSelf();
 
     }
+
+    @Override
+    public void onWaveFormDataCapture(Visualizer visualizer, byte[] bytes, int i) {
+        
+    }
+
+    @Override
+    public void onFftDataCapture(Visualizer visualizer, byte[] bytes, int i) {
+
+    }
+
     public boolean BtConnect() throws IOException {
         int devArrayLength = devices.length;
         for(int i = 0; i < devArrayLength; i++) {
             device = (BluetoothDevice) devices[i];
+            Log.e(TAG, "BtConnect: "+device.getAddress() );
             String devaddReal = device.getAddress();
-            if(devaddReal.equals("00:21:13:05:6A:91")){
+            if(devaddReal.equals("98:D3:31:F5:C1:A1")){
                 socket = device.createRfcommSocketToServiceRecord(UUID.fromString("00001101-0000-1000-8000-00805F9B34FB"));
                 break;
             }
@@ -136,6 +152,7 @@ public class BluetoothService extends Service {
                 socket = null;
             }
         }
+        assert socket != null;
         if (!socket.isConnected() && socket != null) {
             socket.connect();
             try {
@@ -158,7 +175,10 @@ public class BluetoothService extends Service {
 
     public void write(String s) throws IOException {
         if(s != null && outputStream != null ) {
-            outputStream.write(s.getBytes());
+            if (!s.equals(oldString)) {
+                outputStream.write(s.getBytes());
+                oldString = s;
+            }
         }
     }
 
@@ -230,10 +250,14 @@ public class BluetoothService extends Service {
                 arrayDataSeekbar = resetProgressArray(arrayDataSeekbar);
                 saveProgressArray(arrayDataSeekbar);
 
-                for(int i = 0; i< arrayDataMusic.length;i++){
-                    if(arrayDataMusic[i]){
-                        Log.e(TAG, "THIS LIGHT NEED TO GLOW"+ Integer.toString(i) );
-                    }
+                if(arrayDataMusic[4]){
+                    write("x@");
+                }
+                else if(arrayDataMusic[2]){
+                    write("r255g255b000i100@");
+                }
+                else if(arrayDataMusic[5]){
+                    write("r255g000b000i100@");
                 }
 //                write(dataSending);
             }
@@ -259,13 +283,15 @@ public class BluetoothService extends Service {
                 arrayDataMusic = reset(arrayDataMusic);
                 saveBooleanArray(arrayDataMusic,"M");
                 saveProgressArray(arrayDataSeekbar);
-
-                for(int j = 0; j<arrayDataTheme.length; j++){
-                    if(arrayDataTheme[j]){
-                        Log.e(TAG, "onReceive: "+"THIS LIGHT NEEDS TO GLOW"+ Integer.toString(j) );
-                    }
-                }
-//                write(dataSending);
+                String resultColor = setButtonColor(arrayDataTheme);
+//                for(int j = 0; j<arrayDataTheme.length; j++){
+//                    if(arrayDataTheme[j]){
+//                        Log.e(TAG, "onReceive: "+"THIS LIGHT NEEDS TO GLOW"+ Integer.toString(j) );
+//                    }
+//                }
+                String resultTheme = setButtonColor(arrayDataTheme);
+                Log.e(TAG, "onReceiveTheme: "+resultTheme );
+                write(resultTheme);
             }
             catch (Exception ex)
             {
@@ -286,13 +312,14 @@ public class BluetoothService extends Service {
                 arrayDataSeekbar  = intent.getIntArrayExtra("DataFromSeekbar");
                 SharedPreferences.Editor editor = getSharedPreferences(MY_PREFS_NAME, MODE_PRIVATE).edit();
                 editor.apply();
-                arrayDataTheme = reset(arrayDataTheme);
+//                arrayDataTheme = reset(arrayDataTheme);
                 saveBooleanArray(arrayDataTheme,"T");
                 arrayDataMusic = reset(arrayDataMusic);
                 saveBooleanArray(arrayDataMusic,"M");
                 saveProgressArray(arrayDataSeekbar);
                 String result = seekBarArrayDataConditioner(arrayDataSeekbar);
-                Log.e(TAG, "onReceive: "+result);
+                write(result);
+                Log.e(TAG, "onReceiveSeekbar: "+result);
 
 
 //                write(dataSending);
@@ -407,4 +434,153 @@ public class BluetoothService extends Service {
         return "r"+String.format("%03d", red)+"g"+String.format("%03d", green)+"b"+String.format("%03d", blue)+ "i"+ String.format("%03d", brightness)+"@";
 
     }
+
+    String setButtonColor(boolean[] buttonState){
+        int red = 0;
+        int green = 0;
+        int blue = 0;
+        int brightness = arrayDataSeekbar[3];
+        if(buttonState[0]){
+           int bgColor =  ContextCompat.getColor(this, R.color.primaryDarkGreen);
+            red = Color.red(bgColor);
+            green = Color.green(bgColor);
+            blue = Color.blue(bgColor);
+        }
+
+        else if(buttonState[1]){
+            int bgColor =  ContextCompat.getColor(this, R.color.kindOfPurple);
+            red = Color.red(bgColor);
+            green = Color.green(bgColor);
+            blue = Color.blue(bgColor);
+        }
+
+        else if(buttonState[2]){
+            int bgColor =  ContextCompat.getColor(this, R.color.primaryDarkPink);
+            red = Color.red(bgColor);
+            green = Color.green(bgColor);
+            blue = Color.blue(bgColor);
+        }
+
+        else if(buttonState[3]){
+            int bgColor =  ContextCompat.getColor(this, R.color.kindOfYellow);
+            red = Color.red(bgColor);
+            green = Color.green(bgColor);
+            blue = Color.blue(bgColor);
+        }
+
+        else if(buttonState[4]){
+            int bgColor =  ContextCompat.getColor(this, R.color.primaryBlue);
+            red = Color.red(bgColor);
+            green = Color.green(bgColor);
+            blue = Color.blue(bgColor);
+        }
+
+        else if(buttonState[5]){
+            int bgColor =  ContextCompat.getColor(this, R.color.primaryPurple);
+            red = Color.red(bgColor);
+            green = Color.green(bgColor);
+            blue = Color.blue(bgColor);
+        }
+
+        else if(buttonState[6]){
+            int bgColor =  ContextCompat.getColor(this, R.color.contrastYellow);
+            red = Color.red(bgColor);
+            green = Color.green(bgColor);
+            blue = Color.blue(bgColor);
+        }
+
+        else if(buttonState[7]){
+            int bgColor =  ContextCompat.getColor(this, R.color.colorAccent);
+            red = Color.red(bgColor);
+            green = Color.green(bgColor);
+            blue = Color.blue(bgColor);
+        }
+
+        else if(buttonState[8]){
+            int bgColor =  ContextCompat.getColor(this, R.color.primaryGreen);
+            red = Color.red(bgColor);
+            green = Color.green(bgColor);
+            blue = Color.blue(bgColor);
+        }
+
+        else if(buttonState[9]){
+            int bgColor =  ContextCompat.getColor(this, R.color.md_amber_A700);
+            red = Color.red(bgColor);
+            green = Color.green(bgColor);
+            blue = Color.blue(bgColor);
+        }
+
+        else if(buttonState[10]){
+            int bgColor =  ContextCompat.getColor(this, R.color.md_brown_800);
+            red = Color.red(bgColor);
+            green = Color.green(bgColor);
+            blue = Color.blue(bgColor);
+        }
+
+        else if(buttonState[11]){
+            int bgColor =  ContextCompat.getColor(this, R.color.md_cyan_600);
+            red = Color.red(bgColor);
+            green = Color.green(bgColor);
+            blue = Color.blue(bgColor);
+        }
+
+        else if(buttonState[12]){
+            int bgColor =  ContextCompat.getColor(this, R.color.md_deep_orange_A700);
+            red = Color.red(bgColor);
+            green = Color.green(bgColor);
+            blue = Color.blue(bgColor);
+        }
+
+        else if(buttonState[13]){
+            int bgColor =  ContextCompat.getColor(this, R.color.md_indigo_700);
+            red = Color.red(bgColor);
+            green = Color.green(bgColor);
+            blue = Color.blue(bgColor);
+        }
+
+        else if(buttonState[14]){
+            int bgColor =  ContextCompat.getColor(this, R.color.md_red_900);
+            red = Color.red(bgColor);
+            green = Color.green(bgColor);
+            blue = Color.blue(bgColor);
+        }
+
+        else if(buttonState[15]){
+            int bgColor =  ContextCompat.getColor(this, R.color.md_blue_light_600);
+            red = Color.red(bgColor);
+            green = Color.green(bgColor);
+            blue = Color.blue(bgColor);
+        }
+
+        else if(buttonState[16]){
+            int bgColor =  ContextCompat.getColor(this, R.color.md_deep_purple_600);
+            red = Color.red(bgColor);
+            green = Color.green(bgColor);
+            blue = Color.blue(bgColor);
+        }
+
+        else if(buttonState[17]){
+            int bgColor =  ContextCompat.getColor(this, R.color.md_green_600);
+            red = Color.red(bgColor);
+            green = Color.green(bgColor);
+            blue = Color.blue(bgColor);
+        }
+
+        else if(buttonState[18]){
+            int bgColor =  ContextCompat.getColor(this, R.color.md_pink_700);
+            red = Color.red(bgColor);
+            green = Color.green(bgColor);
+            blue = Color.blue(bgColor);
+        }
+
+        else if(buttonState[19]){
+            int bgColor =  ContextCompat.getColor(this, R.color.kindOfPink);
+            red = Color.red(bgColor);
+            green = Color.green(bgColor);
+            blue = Color.blue(bgColor);
+        }
+        return "r"+String.format("%03d", red)+"g"+String.format("%03d", green)+"b"+String.format("%03d", blue)+ "i"+ String.format("%03d", brightness)+"@";
+
+    }
+
 }
