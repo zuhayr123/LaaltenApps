@@ -1,5 +1,6 @@
 package com.laaltentech.abou.laalten;
 
+import android.Manifest;
 import android.app.Notification;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
@@ -12,6 +13,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.SharedPreferences;
+import android.content.pm.PackageManager;
 import android.graphics.Color;
 import android.media.audiofx.Visualizer;
 import android.os.Build;
@@ -30,6 +32,7 @@ import javax.security.auth.login.LoginException;
 
 import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
+import androidx.core.app.ActivityCompat;
 import androidx.core.app.NotificationCompat;
 import androidx.core.content.ContextCompat;
 import androidx.work.WorkManager;
@@ -57,7 +60,19 @@ public class BluetoothService extends Service implements Visualizer.OnDataCaptur
     String dataOutput ;
     Thread workerThread;
 
+    //
+    double magnitude[] = new double[512];
+    double re[] = new double[1024];
+    double im[] = new double[1024];
+    int maxInd;
+    int maxmagg;
+    private static final int CAPTURE_SIZE = 1024;
+    private Visualizer visualiser;
+    public static String cl;
+    //
+
     String oldString = "";
+    String musicdata = "";
     boolean[] arrayDataMusic;
     boolean[] arrayDataTheme;
     int[] arrayDataSeekbar;
@@ -73,6 +88,23 @@ public class BluetoothService extends Service implements Visualizer.OnDataCaptur
     private Runnable runnable = new Runnable() {
         @Override
         public void run() {
+
+//            while(true){
+//                Thread myThread = new Thread(new threadmusic());
+//                try {
+//                    Thread.sleep(100);
+//                    if(musicdata.equals("r000g255b255i099@")) {
+//                        musicdata = "r255g000b000i099@";
+//                        Log.e(TAG, "run: " + "This was called");
+//                    }
+//                    else{
+//                        musicdata = "r000g255b255i099@";
+//                    }
+//                } catch (InterruptedException e) {
+//                    e.printStackTrace();
+//                }
+//                myThread.start();
+//            }
 //           while(true){
 ////               Thread threadBeginListeningToData = new Thread(new threadBeginListeningToData());
 ////               threadBeginListeningToData.start();
@@ -94,6 +126,9 @@ public class BluetoothService extends Service implements Visualizer.OnDataCaptur
         arrayDataTheme = new boolean[20];
         arrayDataSeekbar = new int[6];
         boolean stateBT = false;
+        if(ContextCompat.checkSelfPermission(this, Manifest.permission.RECORD_AUDIO)== PackageManager.PERMISSION_GRANTED){
+            startVisualiser();// Set you media player to the visualizer.
+        }
         try {
             BtConnect();
         } catch (IOException e) {
@@ -116,6 +151,15 @@ public class BluetoothService extends Service implements Visualizer.OnDataCaptur
 
     @Override
     public void onDestroy() {
+        if (outputStream != null) {
+            try {outputStream.close();} catch (Exception e) {}
+            outputStream = null;
+        }
+
+        if (socket != null) {
+            try {socket.close();} catch (Exception e) {}
+            socket = null;
+        }
         unregisterReceiver(myBroadCastReceivers);
         unregisterReceiver(myBroadCastReceiversTheme);
         unregisterReceiver(myBroadCastReceiversSeekbar);
@@ -124,18 +168,95 @@ public class BluetoothService extends Service implements Visualizer.OnDataCaptur
     }
     @Override
     public void onTaskRemoved(Intent rootIntent) {
+        if (outputStream != null) {
+            try {outputStream.close();} catch (Exception e) {}
+            outputStream = null;
+        }
+
+        if (socket != null) {
+            try {socket.close();} catch (Exception e) {}
+            socket = null;
+        }
         stopSelf();
 
     }
 
     @Override
     public void onWaveFormDataCapture(Visualizer visualizer, byte[] bytes, int i) {
-        
+
     }
 
     @Override
-    public void onFftDataCapture(Visualizer visualizer, byte[] bytes, int i) {
+    public void onFftDataCapture(Visualizer visualizer, byte[] fft, int i) {
+        if(arrayDataMusic[0]){
 
+            double maxMag = Double.NEGATIVE_INFINITY;
+            for (int h = 0; h < fft.length / 2; h++) {
+                re[h] = fft[2 * h];
+                im[h] = fft[2 * h + 1];
+                magnitude[h] = Math.sqrt(re[h] * re[h] + im[h] * im[h]);
+                if (magnitude[h] > maxMag) {
+                    maxInd = h*60;
+                    maxMag = magnitude[h];
+                    maxmagg = (int) ((maxMag/14)*10);
+                }
+            }
+
+            if(maxInd>100 && maxInd<300 && maxmagg>1){
+
+                if (maxmagg <100) {
+                    cl = "r000g255b255i"+String.format("%03d", maxmagg)+"@";
+                }
+            }
+
+            else if(maxInd>300 && maxInd<600 && maxmagg>1){
+
+                if (maxmagg <100) {
+                    cl = "r255g000b255i"+String.format("%03d", maxmagg)+"@";
+                }
+            }
+            else if(maxInd>600 && maxInd<900 && maxmagg>1){
+                if (maxmagg <100) {
+                    cl = "r000g000b255i"+String.format("%03d", maxmagg)+"@";
+                }
+
+            }
+            else if(maxInd>900 && maxInd<1200 && maxmagg>1){
+                if (maxmagg <100) {
+                    cl = "r125g000b255i"+String.format("%03d", maxmagg)+"@";
+                }
+            }
+            else if(maxInd>1200 && maxInd<1500 && maxmagg>1){
+                if (maxmagg <100) {
+                    cl = "r200g255b255i"+String.format("%03d", maxmagg)+"@";
+                }
+            }
+            else if(maxInd>1500 && maxInd<2000 && maxmagg>1){
+                if (maxmagg <100) {
+                    cl = "r200g000b255i"+String.format("%03d", maxmagg)+"@";
+                }
+            }
+            else{
+                cl = "r000g000b000i000@";
+            }
+
+            try {
+                write(cl);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+
+        }
+//        else if(arrayDataMusic[1]){
+//            Thread myThread = new Thread(new threadmusic());
+//            try {
+//
+//                Thread.sleep(50);
+//            } catch (InterruptedException e) {
+//                e.printStackTrace();
+//            }
+//            myThread.start();
+//        }
     }
 
     public boolean BtConnect() throws IOException {
@@ -159,9 +280,9 @@ public class BluetoothService extends Service implements Visualizer.OnDataCaptur
                 outputStream = socket.getOutputStream();
                 inputStream = socket.getInputStream();
                 BTState = true;
-                } catch (IOException e) {
+            } catch (IOException e) {
                 BTState = false;
-                }
+            }
         }
 
         return BTState;
@@ -182,8 +303,19 @@ public class BluetoothService extends Service implements Visualizer.OnDataCaptur
         }
     }
 
-   void beginListenForData()
-    {
+    class threadmusic implements Runnable{
+        @Override
+        public void run() {
+            try {
+                randomState();
+                write(musicdata);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+    void beginListenForData() {
 //        final Handler handler = new Handler(Looper.getMainLooper());
         final byte delimiter = 10; //This is the ASCII code for a newline character
 
@@ -441,7 +573,7 @@ public class BluetoothService extends Service implements Visualizer.OnDataCaptur
         int blue = 0;
         int brightness = arrayDataSeekbar[3];
         if(buttonState[0]){
-           int bgColor =  ContextCompat.getColor(this, R.color.primaryDarkGreen);
+            int bgColor =  ContextCompat.getColor(this, R.color.primaryDarkGreen);
             red = Color.red(bgColor);
             green = Color.green(bgColor);
             blue = Color.blue(bgColor);
@@ -581,6 +713,38 @@ public class BluetoothService extends Service implements Visualizer.OnDataCaptur
         }
         return "r"+String.format("%03d", red)+"g"+String.format("%03d", green)+"b"+String.format("%03d", blue)+ "i"+ String.format("%03d", brightness)+"@";
 
+    }
+
+    public void randomState () throws IOException {
+        Random r = new Random();
+        int i1 = r.nextInt(6 + 1);
+
+        while(arrayDataMusic[1]) {
+            if (i1 == 0) {
+                musicdata = "a099@";
+            } else if (i1 == 1) {
+                musicdata = "b099@";
+            } else if (i1 == 2) {
+                musicdata = "c099@";
+            } else if (i1 == 3) {
+                musicdata = "d099@";
+            } else if (i1 == 4) {
+                musicdata = "e099@";
+            } else if (i1 == 5) {
+                musicdata = "f099@";
+            } else {
+                musicdata = "f000@";
+            }
+        }
+    }
+
+    public void startVisualiser()
+    {
+        visualiser = new Visualizer(0);
+        visualiser.setDataCaptureListener(this, Visualizer.getMaxCaptureRate(), true, true);
+        visualiser.setEnabled(false);
+        visualiser.setCaptureSize(CAPTURE_SIZE);
+        visualiser.setEnabled(true);
     }
 
 }

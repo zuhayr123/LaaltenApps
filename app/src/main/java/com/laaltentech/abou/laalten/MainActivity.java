@@ -1,10 +1,14 @@
 package com.laaltentech.abou.laalten;
 
+import android.Manifest;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 
@@ -19,6 +23,7 @@ import static com.laaltentech.abou.laalten.BluetoothService.MY_PREFS_NAME;
 
 public class MainActivity extends AppCompatActivity {
 
+    int PERMISSION_REQUEST = 100;
     SharedPreferences pref;
 
     private TextView mTextMessage;
@@ -65,6 +70,8 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        if(ContextCompat.checkSelfPermission(this, Manifest.permission.RECORD_AUDIO)!= PackageManager.PERMISSION_GRANTED){
+            ActivityCompat.requestPermissions(MainActivity.this, new String[]{Manifest.permission.RECORD_AUDIO}, PERMISSION_REQUEST);}
         fm.beginTransaction().add(R.id.fragmentContainer, fragment3, "3").hide(fragment3).commit();
         fm.beginTransaction().add(R.id.fragmentContainer, fragment2, "2").hide(fragment2).commit();
         fm.beginTransaction().add(R.id.fragmentContainer,fragment1, "1").commit();
